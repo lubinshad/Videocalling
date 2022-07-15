@@ -1,0 +1,38 @@
+<!-- <div [id]="localCallId" class="local">
+    <button type="button" id="endid" (click)="oncallEnd()">End call</button>
+</div> -->
+<!-- <button *ngIf="isJoin" type="button" id="clientid" (click)="onInitActions()">Join</button> -->
+<!-- <button *ngIf="!isJoin" type="button" id="clientid" (click)="onInitActions()">Start Call</button>  -->
+<!-- <a *ngIf="isJoin" href="http://localhost:4600?type=remote" target="_blank" (click)="onInitActions()">Join Call</a>
+<a *ngIf="!isJoin" href="http://localhost:4600?type=remote" target="_blank" (click)="onInitActions()">Start Call</a> -->
+
+<!-- {{isJoin}} -->
+<!-- clientJoin() -->
+
+<!-- <div *ngFor="let callId of remoteCalls" [id]="callId" class="remote">
+</div> -->
+<!-- *ngFor="let callId of remoteCalls"  -->
+<!-- *ngFor="let person of people; let i = index" -->
+<!-- *ngIf="!isJoin"  -->
+<a href="http://localhost:4200/videocall?type=remote" target="_blank" (click)="onInitActions()">Start Call</a>
+<div class="row" style="display: flex;position: relative;flex-flow: wrap;">
+    <!-- {{remoteCalls|json}} -->
+    <div *ngFor="let callId of remoteCalls" [id]="callId" class="col-md-4"
+        style="width: 380px;height: 380px;padding: 15px 25px;">{{callId}}
+    </div>
+    <div [id]="localCallId" class="col-md-4" style="width: 380px;height: 380px;padding: 15px 25px;">{{localCallId}}</div>
+    
+    <!-- <div class="col-md-4" style="width: 46vw;height: 46vh;"></div>
+    <div class="col-md-4" style="width: 46vw;height: 46vh;"></div>  -->
+</div>
+<!-- <div class="row" style="display: flex;">
+    <div class="col-md-4" style="width: 46vw;height: 46vh;"></div>
+    <div class="col-md-4" style="width: 46vw;height: 46vh;"></div>
+    <div [id]="localCallId" class="col-md-4" style="width: 46vw;height: 46vh;"></div>
+    <button type="button" id="endid" (click)="oncallEnd()">End call</button>
+</div> -->
+<!--<div class="row" style="display: flex;">
+     <div class="col-md-4" style="width: 46vw;height: 46vh;">.col-md-4</div>
+    <div class="col-md-4" style="width: 46vw;height: 46vh;">.col-md-4</div>
+    <div class="col-md-4" style="width: 46vw;height: 46vh;">.col-md-4</div>
+</div> -->

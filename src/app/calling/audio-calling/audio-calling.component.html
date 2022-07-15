@@ -1,0 +1,11 @@
+<a href="http://localhost:4200/audiocall?type=remote" target="_blank" (click)="onInitActions()">Start Call</a>
+<div class="row" style="display: flex;position: relative;flex-flow: wrap;">
+    <!-- {{remoteCalls|json}} -->
+    <div *ngFor="let callId of remoteCalls" [id]="callId" class="col-md-4"
+        style="width: 380px;height: 380px;padding: 15px 25px;">{{callId}}
+    </div>
+    <div [id]="localCallId" class="col-md-4" style="width: 380px;height: 380px;padding: 15px 25px;">{{localCallId}}</div>
+    
+    <!-- <div class="col-md-4" style="width: 46vw;height: 46vh;"></div>
+    <div class="col-md-4" style="width: 46vw;height: 46vh;"></div>  -->
+</div>
