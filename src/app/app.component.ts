@@ -12,7 +12,7 @@ export class AppComponent {
   ngOnInit(): void {
   }
   // onRouteClick(type: any) {
-  //   debugger
+  //   
   //   console.log("type",type)
   //   if (type == 1)
   //     this.router.navigate(['audiocall']);

@@ -1,11 +1,15 @@
-<a href="http://localhost:4200/audiocall?type=remote" target="_blank" (click)="onInitActions()">Start Call</a>
+<a routerLink="/audiocall" (click)="onInitActions()" style="padding-right: 20px;">Add Others</a>
+<a routerLink="/call" (click)="oncallEnd()">End Call</a>
 <div class="row" style="display: flex;position: relative;flex-flow: wrap;">
     <!-- {{remoteCalls|json}} -->
-    <div *ngFor="let callId of remoteCalls" [id]="callId" class="col-md-4"
-        style="width: 380px;height: 380px;padding: 15px 25px;">{{callId}}
+    <div *ngFor="let callId of remoteCalls" [id]="callId" class="col-md-4">{{callId}}
+        <img src="\assets\390132123.jpg" style="width: 300px;height: 300px;">
     </div>
-    <div [id]="localCallId" class="col-md-4" style="width: 380px;height: 380px;padding: 15px 25px;">{{localCallId}}</div>
-    
+    <!-- padding: 15px 25px; -->
+    <div *ngIf="isJoin" [id]="localCallId" class="col-md-4">{{localCallId}}
+        <img src="\assets\390132123.jpg" style="width: 300px;height: 300px;">
+    </div>
+
     <!-- <div class="col-md-4" style="width: 46vw;height: 46vh;"></div>
     <div class="col-md-4" style="width: 46vw;height: 46vh;"></div>  -->
 </div>

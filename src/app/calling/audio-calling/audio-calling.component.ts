@@ -23,32 +23,40 @@ export class AudioCallingComponent implements OnInit {
 
   constructor(private ngxAgoraService: NgxAgoraService,
     private route: ActivatedRoute) {
-    debugger
+    
     //this.uid = Math.floor(Math.random() * 100);
     console.log("UID in cons", this.uid)
     //this.uid = this.uid + 1;
   }
 
   ngOnInit(): void {
-    debugger
+    
+    if (this.localStream != undefined)
+      this.oncallEnd()
+    else if (this.remoteCalls.length > 0)
+      this.oncallEnd()
+
+    this.onInitActions()
     //console.log("params",this.route.snapshot.queryParamMap.get('param'))
-    this.route.queryParamMap.subscribe((params) => {
-      debugger
+    // this.route.queryParamMap.subscribe((params) => {
+    //   
 
-      console.log("params out if", params)
-      console.log("params.keys", params.keys)
+    //   console.log("params out if", params)
+    //   console.log("params.keys", params.keys)
 
-      if (params.keys.length !== 0) {
-        //Fthis.isJoin = true;
-        this.onInitActions()
-      }
+    //   if (params.keys.length !== 0) {
+    //     //Fthis.isJoin = true;
+    //     this.onInitActions()
+    //   }
 
-    }
-    );
+    // }
+    // );
     //this.initRemoteStream(() => this.join(uid => this.publishremote(), error => console.error(error)));
   }
   onInitActions() {
-    debugger
+    
+
+    this.isJoin = true;
     console.log("before remoteCalls", this.remoteCalls)
     // this.remoteCalls = this.remoteCalls.filter(ids => {
     //   if (ids !== ids) {
@@ -74,15 +82,15 @@ export class AudioCallingComponent implements OnInit {
       // this.remoteStream = this.ngxAgoraService.createStream({ streamID: this.uid, audio: true, video: true, screen: false });
       this.assignLocalStreamHandlers();
       //this.initLocalStream();
-      debugger
+      
       this.initLocalStream(() => this.join(uid => this.publish(), error => console.error(error)));
       // this.initLocalStream();
       // this.join()
       // this.publish()
     }
     else {
-      debugger
-     this.join(uid => this.publish(), error => console.error(error))
+      
+      this.join(uid => this.publish(), error => console.error(error))
       // this.remoteCalls = this.remoteCalls.filter(ids => {
       //   if(ids !== ids)
       //   {
@@ -92,7 +100,7 @@ export class AudioCallingComponent implements OnInit {
 
     }
 
-    debugger
+    
 
   }
   //Options for joining a channel
@@ -137,34 +145,34 @@ export class AudioCallingComponent implements OnInit {
  * Attempts to connect to an online chat room where users can host and receive A/V streams.
  */
   join(onSuccess?: (uid: number | string) => void, onFailure?: (error: Error) => void): void {
-    debugger
+    
     console.log("UID in join", this.uid)
     // console.log("UID", this.client.join(null, 'Agora-video', this.uid, onSuccess, onFailure));
     this.client.join(null, 'Agora-video', this.uid, onSuccess, onFailure)
   }
 
   // join1(onSuccess?: (uid: number | string) => void, onFailure?: (error: Error) => void): void {
-  //   debugger
+  //   
   //   console.log("UID in join", this.uid)
   //   // console.log("UID", this.client.join(null, 'Agora-video', this.uid, onSuccess, onFailure));
   //   this.client.join(null, 'Agora-video', this.uid, onSuccess, onFailure)
   // }
 
   // clientJoin() {
-  //   debugger
+  //   
   //   console.log("Hi there")
   //   //this.client.join(null, 'abc', Math.floor(Math.random() * 100));
   //   this.onInitActions();
   //   // this.client.on(ClientEvent.RemoteStreamAdded, evt => {
-  //   //     debugger
+  //   //     
   //   //     const stream = evt.stream as Stream;
   //   //     this.client.subscribe(stream, { audio: true, video: true }, err => {
   //   //       console.log('Subscribe stream failed', err);
   //   //     });
   //   //   });
-  //   //   debugger
+  //   //   
   //   //   this.client.on(ClientEvent.RemoteStreamSubscribed, evt => {
-  //   //     debugger
+  //   //     
   //   //     const stream = evt.stream as Stream;
   //   //     const id = this.getRemoteId(stream);
   //   //     if (!this.remoteCalls.length) {
@@ -179,7 +187,7 @@ export class AudioCallingComponent implements OnInit {
    * Attempts to upload the created local A/V stream to a joined chat room.
    */
   publish(): void {
-    debugger
+    
     console.log("UID in publish", this.uid)
 
     this.client.publish(this.localStream, err => console.log('Publish local stream error: ' + err));
@@ -199,7 +207,7 @@ export class AudioCallingComponent implements OnInit {
   }
 
   // private initRemoteStream(onSuccess?: () => any): void {
-  //   debugger
+  //   
   //   this.remoteStream.init(
   //     () => {
   //       // The user has granted access to the camera and mic.
@@ -212,11 +220,11 @@ export class AudioCallingComponent implements OnInit {
   //   );
   // }
   private initLocalStream(onSuccess?: () => any): void {
-    debugger
+    
     console.log("Here in initLocalStream")
     this.localStream.init(
       () => {
-        debugger
+        
         // The user has granted access to the camera and mic.
         //this.localStream.play(this.localCallId);
         //this.client.leave();
@@ -229,11 +237,11 @@ export class AudioCallingComponent implements OnInit {
   }
 
   private assignClientHandlers(): void {
-    debugger
+    
     this.client.on(ClientEvent.LocalStreamPublished, evt => {
       console.log('Publish local stream successfully');
     });
-    debugger
+    
     this.client.on(ClientEvent.Error, error => {
       console.log('Got error msg:', error.reason);
       if (error.reason === 'DYNAMIC_KEY_TIMEOUT') {
@@ -244,23 +252,23 @@ export class AudioCallingComponent implements OnInit {
         );
       }
     });
-
+    // if (this.localStream == undefined) 
+    // {
     this.client.on(ClientEvent.RemoteStreamAdded, evt => {
-      debugger
+      
       const stream = evt.stream as Stream;
       this.client.subscribe(stream, { audio: true, video: true }, err => {
         console.log('Subscribe stream failed', err);
       });
 
     });
-    debugger
+    
     this.client.on(ClientEvent.RemoteStreamSubscribed, evt => {
-      debugger
+      
       const stream = evt.stream as Stream;
       const id = this.getRemoteId(stream);
       console.log("Result", this.remoteCalls.some(rmid => rmid == id));
-      if (!this.remoteCalls.some(rmid => rmid == id))
-      {
+      if (!this.remoteCalls.some(rmid => rmid == id)) {
         this.remoteCalls.push(id);
         setTimeout(() => stream.play(id), 1000);
       }
@@ -274,9 +282,11 @@ export class AudioCallingComponent implements OnInit {
       //   setTimeout(() => stream.play(this.remoteCalls[index]), 1000);
       // }
     });
+    //}
+
 
     this.client.on(ClientEvent.RemoteStreamRemoved, evt => {
-      debugger
+      
       console.log("Inside RemoteStreamRemoved");
 
       const stream = evt.stream as Stream;
@@ -288,7 +298,7 @@ export class AudioCallingComponent implements OnInit {
     });
     this.client.
       on(ClientEvent.PeerLeave, evt => {
-        debugger
+        
         console.log("Inside PeerLeave");
 
         const stream = evt.stream as Stream;
@@ -302,7 +312,7 @@ export class AudioCallingComponent implements OnInit {
   }
 
   oncallEnd() {
-    debugger
+    
     console.log("this.remoteCalls", this.remoteCalls)
     console.log("this.localStream", this.localStream)
     //this.localStream.stop();
@@ -312,7 +322,7 @@ export class AudioCallingComponent implements OnInit {
     // this.localStream.play(this.localCallId);
     //this.client.leave();
     // this.client.on(ClientEvent.RemoteStreamRemoved, evt => {
-    //   debugger
+    //   
     //   const stream = evt.stream as Stream;
     //   if (stream) {
     //     stream.stop();
@@ -322,7 +332,7 @@ export class AudioCallingComponent implements OnInit {
     // });
 
     // this.client.on(ClientEvent.PeerLeave, evt => {
-    //   debugger
+    //   
     //   const stream = evt.stream as Stream;
     //   if (stream) {
     //     stream.stop();
