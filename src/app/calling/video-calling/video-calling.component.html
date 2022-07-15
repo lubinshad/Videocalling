@@ -14,7 +14,8 @@
 <!-- *ngFor="let callId of remoteCalls"  -->
 <!-- *ngFor="let person of people; let i = index" -->
 <!-- *ngIf="!isJoin"  -->
-<a href="http://localhost:4200/videocall?type=remote" target="_blank" (click)="onInitActions()">Start Call</a>
+<!-- href="http://localhost:4200/videocall?type=remote"  -->
+<a routerLink="/videocall" (click)="onInitActions()">Start Call</a>
 <div class="row" style="display: flex;position: relative;flex-flow: wrap;">
     <!-- {{remoteCalls|json}} -->
     <div *ngFor="let callId of remoteCalls" [id]="callId" class="col-md-4"
